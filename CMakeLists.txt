@@ -104,6 +104,7 @@ add_subdirectory(External)
 # zero source and related projects
 add_subdirectory(ZeroLibraries)
 add_subdirectory(Systems)
+add_subdirectory(PhysicsSandbox)
 add_subdirectory(Extensions)
 add_subdirectory(Projects)
 add_subdirectory(UnitTests)
