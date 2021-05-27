@@ -73,6 +73,11 @@ void ZeroStartup::InitializeLibraries(ZeroStartupSettings& settings)
   NetworkingLibrary::Initialize();
   SoundLibrary::Initialize();
 
+  for(size_t i = 0; i < mLibararyInitializers.Size(); ++i)
+  {
+    mLibararyInitializers[i]->Intialize();
+  }
+
   WidgetLibrary::Initialize();
   GameplayLibrary::Initialize();
   EditorLibrary::Initialize();
@@ -109,6 +114,12 @@ void ZeroStartup::Shutdown()
   GameplayLibrary::Shutdown();
   WidgetLibrary::Shutdown();
 
+  for(size_t i = 0; i < mLibararyInitializers.Size(); ++i)
+  {
+    size_t index = mLibararyInitializers.Size() - i - 1;
+    mLibararyInitializers[index]->Shutdown();
+  }
+
   SoundLibrary::Shutdown();
   NetworkingLibrary::Shutdown();
   PhysicsLibrary::Shutdown();
@@ -130,6 +141,12 @@ void ZeroStartup::Shutdown()
   GameplayLibrary::GetInstance().ClearLibrary();
   WidgetLibrary::GetInstance().ClearLibrary();
 
+  for(size_t i = 0; i < mLibararyInitializers.Size(); ++i)
+  {
+    size_t index = mLibararyInitializers.Size() - i - 1;
+    mLibararyInitializers[index]->ClearLibrary();
+  }
+
   SoundLibrary::GetInstance().ClearLibrary();
   NetworkingLibrary::GetInstance().ClearLibrary();
   PhysicsLibrary::GetInstance().ClearLibrary();
@@ -149,6 +166,12 @@ void ZeroStartup::Shutdown()
   EditorLibrary::Destroy();
   GameplayLibrary::Destroy();
   WidgetLibrary::Destroy();
+
+  for(size_t i = 0; i < mLibararyInitializers.Size(); ++i)
+  {
+    size_t index = mLibararyInitializers.Size() - i - 1;
+    mLibararyInitializers[index]->Destroy();
+  }
 
   SoundLibrary::Destroy();
   NetworkingLibrary::Destroy();

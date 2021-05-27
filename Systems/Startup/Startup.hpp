@@ -6,6 +6,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include "LibraryInitializer.hpp"
+
 namespace Zero
 {
 
@@ -22,6 +24,7 @@ protected:
   Engine* InitializeEngine();
   ExecutableState* mState;
   ZilchSetup* mZilchSetup;
+  Array<LibraryInitializer*> mLibararyInitializers;
 };
 
 }//namespace Zero
