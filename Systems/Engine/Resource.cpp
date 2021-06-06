@@ -189,8 +189,8 @@ void ResourceMetaSerialization::SerializeProperty(HandleParam instance, Property
   {
     // Serialize a Resource to a String that is a resource name and Id.
     StringRange resourceIdAndName;
-    if (serializer.StringField("string", fieldName, resourceIdAndName))
-      LoadResource(instance, property, resourceType, resourceIdAndName);
+    serializer.StringField("string", fieldName, resourceIdAndName);
+    LoadResource(instance, property, resourceType, resourceIdAndName);
   }
   else
   {
