@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "MassPropertiesDrawer"
+		var ResourceId = 0x60ea30716fc6b374
+	}
+}

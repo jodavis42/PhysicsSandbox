@@ -1,0 +1,19 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "DefaultPhysics2dMaterial"
+		var ResourceId = 0x4de1f0a65e872da8
+		var LoaderType = "Physics2dMaterial"
+		var Version = 0
+	}
+	ResourceTemplate 
+	{
+		var DisplayName = "Default"
+		var Description = ""
+		var SortWeight = 100
+		var Category = ""
+		var CategorySortWeight = 100
+	}
+}

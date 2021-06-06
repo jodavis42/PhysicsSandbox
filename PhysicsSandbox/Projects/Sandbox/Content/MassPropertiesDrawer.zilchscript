@@ -1,0 +1,23 @@
+[RunInEditor]
+class MassPropertiesDrawer : ZilchComponent
+{
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.FrameUpdate, this.OnFrameUpdate);
+  }
+
+  function OnFrameUpdate(event : UpdateEvent)
+  {
+    var body2d = this.Owner.RigidBody2d;
+    var worldCenterOfMass = body2d.WorldCenterOfMass;
+    var localCenterOfMassOffset = body2d.CenterOfMassPositionOffset;
+    var worldRotation = body2d.WorldRotation;
+    var worldRotationMatrix = Math.GenerateRotationMatrix2x2(worldRotation);
+    var worldCenterOfMassOffset = Real3(Math.Multiply(worldRotationMatrix, localCenterOfMassOffset), 0);
+    var worldPosition = this.Owner.Transform.WorldTranslation;
+    
+    Console.WriteLine("Udpate");
+    DebugDraw.Add(DebugSphere(Real3(worldCenterOfMass, 0), 0.01) { Color = Colors.Red, OnTop = true});
+    DebugDraw.Add(DebugLine(worldPosition, worldPosition + worldCenterOfMassOffset) { Color = Colors.Red, OnTop = true, HeadSize = 0.1});
+  }
+}
