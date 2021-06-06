@@ -6,6 +6,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include "Precompiled.hpp"
 
+
+#include "Physics2dCore/Physics2dCoreLibrary.hpp"
+#include "Physics2dTCS/Physics2dLibraryTCS.hpp"
+
 namespace Zero
 {
 
@@ -13,6 +17,8 @@ namespace Zero
 //**************************************************************************************************
 Engine* ZeroStartup::Initialize(ZeroStartupSettings& settings)
 {
+  mLibararyInitializers.PushBack(new TypedLibraryInitializer<Physics2dCoreLibrary>());
+  mLibararyInitializers.PushBack(new TypedLibraryInitializer<Physics2dLibraryTCS>());
   InitializeLibraries(settings);
   return InitializeEngine();
 }

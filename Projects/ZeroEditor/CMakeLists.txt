@@ -29,6 +29,8 @@ target_link_libraries(ZeroEditor
                       Networking 
                       Meta 
                       Physics 
+                      Physics2dCore 
+                      Physics2dTCS 
                       Sound 
                       Platform 
                       Content 
