@@ -10,31 +10,28 @@ Aabb2d Aabb2d::InvalidAabb = Aabb2d::BuildInvalidAabb();
 
 Aabb2d Aabb2d::FromMinMax(const Vector2& min, const Vector2& max)
 {
-  Aabb2d result;
-  result.mMin = min;
-  result.mMax = max;
-  return result;
+  return Aabb2d(min, max);
 }
 
 Aabb2d Aabb2d::FromCenterAndHalfExtents(const Vector2& center, const Vector2& halfExtents)
 {
-  Aabb2d result;
-  result.mMin = center - halfExtents;
-  result.mMax = center + halfExtents;
-  return result;
+  return Aabb2d(center - halfExtents, center + halfExtents);
 }
 
 Aabb2d Aabb2d::BuildInvalidAabb()
 {
-  Aabb2d result;
-  result.mMin = Vector2(Math::PositiveMax());
-  result.mMax = Vector2(-Math::PositiveMax());
-  return result;
+  return Aabb2d(Vector2(Math::PositiveMax()), Vector2(-Math::PositiveMax()));
 }
 
 Aabb2d::Aabb2d()
 {
   BuildInvalidAabb();
+}
+
+Aabb2d::Aabb2d(const Vector2& min, const Vector2& max)
+  : mMin(min), mMax(max)
+{
+
 }
 
 Vector2 Aabb2d::GetCenter() const

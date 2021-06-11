@@ -15,6 +15,7 @@ public:
   static Aabb2d BuildInvalidAabb();
 
   Aabb2d();
+  Aabb2d(const Vector2& min, const Vector2& max);
 
   Vector2 GetCenter() const;  
   Vector2 GetExtents() const;

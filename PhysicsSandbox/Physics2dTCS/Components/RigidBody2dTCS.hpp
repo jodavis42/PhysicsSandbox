@@ -19,7 +19,8 @@ class RigidBody2dTCS : public Zero::Component
 public:
   ZilchDeclareType(RigidBody2dTCS, TypeCopyMode::ReferenceType);
 
-  void Initialize(Zero::CogInitializer& initializer);
+  void Initialize(Zero::CogInitializer& initializer) override;
+  void TransformUpdate(Zero::TransformUpdateInfo& info) override;
   void ComponentRemoved(BoundType* typeId, Component* component) override;
 
   void UpdateAfterIntegrationInternal(const Vector2& worldCenterOfMass, float worldRotation);

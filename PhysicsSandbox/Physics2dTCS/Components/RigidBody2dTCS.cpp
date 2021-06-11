@@ -34,6 +34,14 @@ void RigidBody2dTCS::Initialize(Zero::CogInitializer& initializer)
   ConnectThisTo(GetOwner(), Physics2dCore::Events::RigidBody2dPropertyChanged, OnRigidBody2dPropertyChanged);
 }
 
+void RigidBody2dTCS::TransformUpdate(Zero::TransformUpdateInfo& info)
+{
+  if((info.TransformFlags & ~Zero::TransformUpdateFlags::Physics) != 0)
+  {
+    QueueMassUpdate();
+  }
+}
+
 void RigidBody2dTCS::RigidBody2dTCS::ComponentRemoved(BoundType* typeId, Component* component)
 {
   if(typeId == ZilchTypeId(RigidBody2d))
@@ -57,6 +65,7 @@ void RigidBody2dTCS::OnRigidBody2dPropertyChanged(PropertyChangedEvent* e)
 
 void RigidBody2dTCS::QueueMassUpdate()
 {
+  mMassQueueEntry.mUpdateMassProperties = true;
   mPhysicsSpace2d->QueueMassUpdate(this);
 }
 
