@@ -17,4 +17,6 @@ class Ray2d;
 class Circle2d;
 class Aabb2d;
 class Obb2d;
+class RayIntersectionPoint2d;
+class RayResult2d;
 }//namespace Physics2d
