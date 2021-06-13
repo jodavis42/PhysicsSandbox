@@ -10,6 +10,8 @@ class ManifoldPoint2d
 {
 public:
   void Transform(const Matrix2& rotation, const Vector2& translation);
+  void Flip();
+  void UpdatePenetrationDistance();
 
   Vector2 mPoints[2]{};
   Vector2 mNormal = Vector2::cZero;

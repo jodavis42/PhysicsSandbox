@@ -17,6 +17,7 @@ public:
   size_t Size() const;
 
   void TransformPoints(const Matrix2& rotation, const Vector2& translation);
+  void Flip();
 
   char mPointCount = 0;
   ManifoldPoint2d mPoints[2]{};

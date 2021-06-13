@@ -21,10 +21,16 @@ target_sources(SandboxGeometry
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayResult2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionResult2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionResult2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/BooleanTests2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/BooleanTests2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/PointTests2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/PointTests2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayTests2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayTests2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/ManifoldPoint2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/ManifoldPoint2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/Manifold2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/Manifold2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionTests2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionTests2d.hpp
 )

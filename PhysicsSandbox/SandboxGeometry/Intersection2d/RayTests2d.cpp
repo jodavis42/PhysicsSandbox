@@ -129,9 +129,10 @@ IntersectionResult2d RayTests2d::RayObb(const Vector2& rayStart, const Vector2& 
 {
   Matrix2 invRotation = obbRotation.Transposed();
 
-  Vector2 aabbMin = obbCenter - obbHalfExtents;
-  Vector2 aabbMax = obbCenter + obbHalfExtents;
-  // Rotate the ray by the inverse of the obb's rotation, turning it into Ray vs Aabb
+  // Transform into the space where the obb is an aabb centered at the origin
+  Vector2 aabbMin = -obbHalfExtents;
+  Vector2 aabbMax = obbHalfExtents;
+
   Vector2 localRayCenter = Math::Multiply(invRotation, rayStart - obbCenter);
   Vector2 localRayDir = Math::Multiply(invRotation, rayDir);
   IntersectionResult2d intersectionResult = RayAabb(localRayCenter, localRayDir, aabbMin, aabbMax, result);
@@ -144,6 +145,21 @@ IntersectionResult2d RayTests2d::RayObb(const Vector2& rayStart, const Vector2& 
 IntersectionResult2d RayTests2d::RayObb(const Ray2d& ray, const Obb2d& obb, RayResult2d& result)
 {
   return RayObb(ray.mStart, ray.mDirection, obb.mCenter, obb.mRotation, obb.mHalfExtents, result);
+}
+
+IntersectionResult2d RayTests2d::Test(const Ray2d& ray, const Aabb2d& aabb, RayResult2d& result, float parallelEpsilonCheck)
+{
+  return RayAabb(ray, aabb, result, parallelEpsilonCheck);
+}
+
+IntersectionResult2d RayTests2d::Test(const Ray2d& ray, const Circle2d& circle, RayResult2d& result)
+{
+  return RayCircle(ray, circle, result);
+}
+
+IntersectionResult2d RayTests2d::Test(const Ray2d& ray, const Obb2d& obb, RayResult2d& result)
+{
+  return RayObb(ray, obb, result);
 }
 
 } //namespace SandboxGeometry

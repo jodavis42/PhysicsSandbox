@@ -27,4 +27,10 @@ void Manifold2d::TransformPoints(const Matrix2& rotation, const Vector2& transla
     mPoints[i].Transform(rotation, translation);
 }
 
+void Manifold2d::Flip()
+{
+  for(size_t i = 0; i < Size(); ++i)
+    mPoints[i].Flip();
+}
+
 }//namespace SandboxGeometry
