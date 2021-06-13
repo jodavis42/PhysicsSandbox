@@ -23,6 +23,9 @@ public:
 
   static bool ObbCircle(const Vector2& obbCenter, const Matrix2& obbRotation, const Vector2 obbHalfExtents, const Vector2& circleCenter, float circleRadius, Manifold2d& manifold);
   static bool ObbCircle(const Obb2d& obb, const Circle2d& circle, Manifold2d& manifold);
+
+  static bool ObbObb(const Vector2& obbCenter0, const Matrix2& obbRotation0, const Vector2 obbHalfExtents0, const Vector2& obbCenter1, const Matrix2& obbRotation1, const Vector2 obbHalfExtents1, Manifold2d& manifold);
+  static bool ObbObb(const Obb2d& obb0, const Obb2d& obb1, Manifold2d& manifold);
   
   static bool Test(const Circle2d& circle0, const Circle2d& circle1, Manifold2d& manifold);
   static bool Test(const Obb2d& obb, const Circle2d& circle, Manifold2d& manifold);

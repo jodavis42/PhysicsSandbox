@@ -15,6 +15,8 @@ target_sources(SandboxGeometry
     ${CMAKE_CURRENT_LIST_DIR}/Shapes2d/Plane2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Shapes2d/Ray2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Shapes2d/Ray2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Shapes2d/SatShape2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Shapes2d/SatShape2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayIntersectionPoint2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayIntersectionPoint2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayResult2d.cpp
@@ -33,4 +35,8 @@ target_sources(SandboxGeometry
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/Manifold2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionTests2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionTests2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/Sat2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/Sat2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Utilities/Barycentric2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Utilities/Barycentric2d.hpp
 )

@@ -7,6 +7,8 @@
 #include "SandboxGeometry/Shapes2d/Obb2d.hpp"
 #include "SandboxGeometry/Intersection2d/Manifold2d.hpp"
 #include "SandboxGeometry/Intersection2d/PointTests2d.hpp"
+#include "SandboxGeometry/Shapes2d/SatShape2d.hpp"
+#include "SandboxGeometry/Intersection2d/Sat2d.hpp"
 
 namespace SandboxGeometry
 {
@@ -160,6 +162,23 @@ bool IntersectionTests2d::ObbCircle(const Vector2& obbCenter, const Matrix2& obb
   return result;
 }
 
+bool IntersectionTests2d::ObbObb(const Vector2& obbCenter0, const Matrix2& obbRotation0, const Vector2 obbHalfExtents0, const Vector2& obbCenter1, const Matrix2& obbRotation1, const Vector2 obbHalfExtents1, Manifold2d& manifold)
+{
+  SatShape2d obbShape0;
+  BuildObbSatShape2d(obbCenter0, obbRotation0, obbHalfExtents0, obbShape0);
+
+  SatShape2d obbShape1;
+  BuildObbSatShape2d(obbCenter1, obbRotation1, obbHalfExtents1, obbShape1);
+
+  Sat2d satTest;
+  return satTest.Test(obbShape0, obbShape1, manifold);
+}
+
+bool IntersectionTests2d::ObbObb(const Obb2d& obb0, const Obb2d& obb1, Manifold2d& manifold)
+{
+  return ObbObb(obb0.mCenter, obb0.mRotation, obb0.mHalfExtents, obb1.mCenter, obb1.mRotation, obb1.mHalfExtents, manifold);
+}
+
 bool IntersectionTests2d::ObbCircle(const Obb2d& obb, const Circle2d& circle, Manifold2d& manifold)
 {
   return ObbCircle(obb.mCenter, obb.mRotation, obb.mHalfExtents, circle.mCenter, circle.mRadius, manifold);
@@ -185,7 +204,7 @@ bool IntersectionTests2d::Test(const Circle2d& circle, const Obb2d& obb, Manifol
 
 bool IntersectionTests2d::Test(const Obb2d& obb0, const Obb2d& obb1, Manifold2d& manifold)
 {
-  return false;
+  return ObbObb(obb0, obb1, manifold);
 }
 
 } //namespace SandboxGeometry
