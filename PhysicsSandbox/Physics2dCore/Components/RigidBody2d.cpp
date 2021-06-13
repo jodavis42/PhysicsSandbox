@@ -22,7 +22,7 @@ String RigidBody2d::ForcePropertyName = "Force";
 String RigidBody2d::TorquePropertyName = "Torque";
 String RigidBody2d::WorldCenterOfMassPropertyName = "WorldCenterOfMass";
 String RigidBody2d::WorldRotationPropertyName = "WorldRotation";
-String RigidBody2d::CenterOfMassPositionOffsetPropertyName = "CenterOfMassPositionOffset";
+String RigidBody2d::BodyLocalTranslationOffsetPropertyName = "BodyLocalTranslationOffset";
 
 //-------------------------------------------------------------------RigidBody2d
 ZilchDefineType(RigidBody2d, builder, type)
@@ -42,7 +42,7 @@ ZilchDefineType(RigidBody2d, builder, type)
   ZilchBindGetterSetter(Torque);
   ZilchBindGetterSetter(WorldCenterOfMass);
   ZilchBindGetterSetter(WorldRotation);
-  ZilchBindGetterSetter(CenterOfMassPositionOffset);
+  ZilchBindGetterSetter(BodyLocalTranslationOffset);
 }
 
 void RigidBody2d::Serialize(Zero::Serializer& stream)
@@ -220,20 +220,20 @@ void RigidBody2d::SetWorldRotationNoEvent(float worldRotation)
   mWorldRotation = worldRotation;
 }
 
-Vector2 RigidBody2d::GetCenterOfMassPositionOffset() const
+Vector2 RigidBody2d::GetBodyLocalTranslationOffset() const
 {
-  return mCenterOfMassPositionOffset;
+  return mBodyLocalTranslationOffset;
 }
 
-void RigidBody2d::SetCenterOfMassPositionOffset(const Vector2& positionOffset)
+void RigidBody2d::SetBodyLocalTranslationOffset(const Vector2& translationOffset)
 {
-  SetCenterOfMassPositionOffsetNoEvent(positionOffset);
-  SendPropertyEvent(CenterOfMassPositionOffsetPropertyName, PropertyChangedFlags::RecomputeMassProperties | PropertyChangedFlags::UpdateSpatialPartition);
+  SetBodyLocalTranslationOffsetNoEvent(translationOffset);
+  SendPropertyEvent(BodyLocalTranslationOffsetPropertyName, PropertyChangedFlags::RecomputeMassProperties | PropertyChangedFlags::UpdateSpatialPartition);
 }
 
-void RigidBody2d::SetCenterOfMassPositionOffsetNoEvent(const Vector2& positionOffset)
+void RigidBody2d::SetBodyLocalTranslationOffsetNoEvent(const Vector2& translationOffset)
 {
-  mCenterOfMassPositionOffset = positionOffset;
+  mBodyLocalTranslationOffset = translationOffset;
 }
 
 Vector2 RigidBody2d::GetWorldTranslation() const

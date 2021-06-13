@@ -23,7 +23,7 @@ public:
   static String TorquePropertyName;
   static String WorldCenterOfMassPropertyName;
   static String WorldRotationPropertyName;
-  static String CenterOfMassPositionOffsetPropertyName;
+  static String BodyLocalTranslationOffsetPropertyName;
 
   void Serialize(Zero::Serializer& stream) override;
   void Initialize(Zero::CogInitializer& initializer) override;
@@ -65,9 +65,9 @@ public:
   void SetWorldRotation(float worldRotation);
   void SetWorldRotationNoEvent(float worldRotation);
 
-  Vector2 GetCenterOfMassPositionOffset() const;
-  void SetCenterOfMassPositionOffset(const Vector2& positionOffset);
-  void SetCenterOfMassPositionOffsetNoEvent(const Vector2& positionOffset);
+  Vector2 GetBodyLocalTranslationOffset() const;
+  void SetBodyLocalTranslationOffset(const Vector2& translationOffset);
+  void SetBodyLocalTranslationOffsetNoEvent(const Vector2& translationOffset);
 
   Vector2 GetWorldTranslation() const;
 
@@ -87,7 +87,8 @@ protected:
 
   Vector2 mWorldCenterOfMass = Vector2::cZero;
   float mWorldRotation = 0.0f;
-  Vector2 mCenterOfMassPositionOffset = Vector2::cZero;
+  // The location of the transform relative to the center of mass in the body space (center of mass at origin, no rotation)
+  Vector2 mBodyLocalTranslationOffset = Vector2::cZero;
 };
 
 }//namespace Physics2dCore

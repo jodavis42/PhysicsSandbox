@@ -12,10 +12,10 @@ void TransformComputation::UpdateTransform(RigidBody2d& body)
 {
   float worldRotation = body.GetWorldRotation();
   Vector2 worldCenterOfMass = body.GetWorldCenterOfMass();
-  Vector2 localPositionOffset = body.GetCenterOfMassPositionOffset();
+  Vector2 localTranslationOffset = body.GetBodyLocalTranslationOffset();
 
   Matrix2 worldRotationMatrix = Matrix2::GenerateRotation(worldRotation);
-  Vector2 worldPositionOffset = Math::Multiply(worldRotationMatrix, localPositionOffset);
+  Vector2 worldPositionOffset = Math::Multiply(worldRotationMatrix, localTranslationOffset);
   Vector2 worldTranslation = worldCenterOfMass - worldPositionOffset;
 
   Zero::Transform* transform = body.GetOwner()->has(Zero::Transform);

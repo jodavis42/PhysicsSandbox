@@ -28,13 +28,12 @@ void MassComputation::UpdateMassProperties(RigidBody2d& body, const BodyMassProp
 {
   Vector2 worldTranslation = body.GetWorldTranslation();
   Matrix2 worldRotationMatrix = Matrix2::GenerateRotation(body.GetWorldRotation());
-  Vector2 localCenterOfMass = Math::Multiply(worldRotationMatrix.Transposed(), bodyMassProperties.mCenterOfMass);
-  Vector2 localPositionOffset = localCenterOfMass - worldTranslation;
+  Vector2 localTranslationOffset = Math::Multiply(worldRotationMatrix.Transposed(), worldTranslation - bodyMassProperties.mCenterOfMass);
 
   body.SetInvMassNoEvent(1.0f / bodyMassProperties.mMass);
   body.SetInvInertiaNoEvent(1.0f / bodyMassProperties.mInertia);
   body.SetWorldCenterOfMassNoEvent(bodyMassProperties.mCenterOfMass);
-  body.SetCenterOfMassPositionOffsetNoEvent(localPositionOffset);
+  body.SetBodyLocalTranslationOffsetNoEvent(localTranslationOffset);
 }
 
 }//namespace Physics2dCore
