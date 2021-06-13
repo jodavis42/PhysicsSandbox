@@ -12,6 +12,7 @@ class TransformComputation
 {
 public:
   static void UpdateTransform(RigidBody2d& body);
+  static void UpdateBodyRotation(RigidBody2d& body);
 };
 
 }//namespace Physics2dCore

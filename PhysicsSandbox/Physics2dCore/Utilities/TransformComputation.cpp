@@ -27,4 +27,12 @@ void TransformComputation::UpdateTransform(RigidBody2d& body)
   transform->TransformUpdate(info);
 }
 
+void TransformComputation::UpdateBodyRotation(RigidBody2d& body)
+{
+  Zero::Transform* transform = body.GetOwner()->has(Zero::Transform);
+  Vector3 worldXAxis = Math::Normalized(transform->TransformNormal(Vector3::cXAxis));
+  float worldRotation = Math::Angle2D(worldXAxis);
+  body.SetWorldRotationNoEvent(worldRotation);
+}
+
 }//namespace Physics2dCore
