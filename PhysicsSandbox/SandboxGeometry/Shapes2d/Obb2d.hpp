@@ -11,6 +11,7 @@ class Obb2d
 public:
   Obb2d Transform(const Matrix2& rotation) const;
   Vector2 Search(const Vector2& direction) const;
+  static Vector2 Search(const Vector2& direction, const Vector2& center, const Matrix2& rotation, const Vector2& halfExtents);
 
   Vector2 mCenter = Vector2::cZero;
   Vector2 mHalfExtents = Vector2(0.5f, 0.5f);

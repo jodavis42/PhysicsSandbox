@@ -14,6 +14,7 @@ public:
 
   Circle2d Transform(const Matrix3& transform) const;
   Vector2 Search(const Vector2& direction) const;
+  static Vector2 Search(const Vector2& direction, const Vector2& center, float radius);
 
   float mRadius = 1.0f;
   Vector2 mCenter = Vector2::cZero;

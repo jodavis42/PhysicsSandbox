@@ -93,13 +93,18 @@ Aabb2d Aabb2d::Combine(const Aabb2d& lhs, const Aabb2d& rhs)
 
 Vector2 Aabb2d::Search(const Vector2& direction) const
 {
+  return Search(direction, mMin, mMax);
+}
+
+Vector2 Aabb2d::Search(const Vector2& direction, const Vector2& aabbMin, const Vector2& aabbMax)
+{
   Vector2 result;
   for(size_t i = 0; i < 2; ++i)
   {
     if(direction[i] >= 0)
-      result[i] = mMax[i];
+      result[i] = aabbMax[i];
     else
-      result[i] = mMin[i];
+      result[i] = aabbMin[i];
   }
   return result;
 }

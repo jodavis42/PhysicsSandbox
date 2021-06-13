@@ -29,6 +29,7 @@ public:
   static Aabb2d Combine(const Aabb2d& lhs, const Aabb2d& rhs);
 
   Vector2 Search(const Vector2& direction) const;
+  static Vector2 Search(const Vector2& direction, const Vector2& aabbMin, const Vector2& aabbMax);
 
   Vector2 mMin = Vector2::cZero;
   Vector2 mMax = Vector2::cZero;

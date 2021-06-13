@@ -39,7 +39,12 @@ Circle2d Circle2d::Transform(const Matrix3& transform) const
 
 Vector2 Circle2d::Search(const Vector2& direction) const
 {
-  return mCenter + direction.Normalized() * mRadius;
+  return Search(direction, mCenter, mRadius);
+}
+
+Vector2 Circle2d::Search(const Vector2& direction, const Vector2& center, float radius)
+{
+  return center + direction.Normalized() * radius;
 }
 
 }//namespace SandboxGeometry

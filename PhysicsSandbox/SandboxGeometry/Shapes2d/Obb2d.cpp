@@ -17,13 +17,18 @@ Obb2d Obb2d::Transform(const Matrix2& rotation) const
 
 Vector2 Obb2d::Search(const Vector2& direction) const
 {
-  Matrix2 invRotation = mRotation.Transposed();
+  return Search(direction, mCenter, mRotation, mHalfExtents);
+}
+
+Vector2 Obb2d::Search(const Vector2& direction, const Vector2& center, const Matrix2& rotation, const Vector2& halfExtents)
+{
+  Matrix2 invRotation = rotation.Transposed();
   Vector2 localDirection = Math::Multiply(invRotation, direction);
 
   Vector2 result = Vector2::cZero;
-  result[0] += Math::Sign(direction[0]) * mHalfExtents[0];
-  result[1] += Math::Sign(direction[1]) * mHalfExtents[1];
-  result = Math::Multiply(mRotation, result) + mCenter;
+  result[0] += Math::Sign(direction[0]) * halfExtents[0];
+  result[1] += Math::Sign(direction[1]) * halfExtents[1];
+  result = Math::Multiply(rotation, result) + center;
   return result;
 }
 
