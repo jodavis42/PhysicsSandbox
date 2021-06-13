@@ -54,10 +54,14 @@ bool CollisionLibrary::TestIntersectionGeneric(const Collider2d* collider0, cons
   const ColliderType1* typedCollider1 = static_cast<const ColliderType1*>(collider1);
   auto&& shape0 = Collider2dShapes::GetShape(*typedCollider0);
   auto&& shape1 = Collider2dShapes::GetShape(*typedCollider1);
-
-  bool result = SandboxGeometry::IntersectionTests2d::Test(shape0, shape1, manifold);
+  
+  SubFeatureContactManifold2d subFeatureContact;
+  bool result = SandboxGeometry::IntersectionTests2d::Test(shape0, shape1, subFeatureContact);
   if(result)
+  {
+    manifold.AddSubFeatureContact(subFeatureContact);
     manifold.mColliders.Set(collider0, collider1);
+  }
   return result;
 }
 
