@@ -19,4 +19,7 @@ class Aabb2d;
 class Obb2d;
 class RayIntersectionPoint2d;
 class RayResult2d;
+class ManifoldPoint2d;
+class Manifold2d;
+
 }//namespace Physics2d

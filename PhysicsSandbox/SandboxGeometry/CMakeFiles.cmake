@@ -1,7 +1,3 @@
-################################################################################
-# Generated using Joshua T. Fisher's 'CMake Builder'.
-# Link: https://github.com/playmer/CmakeBuilder 
-################################################################################
 target_sources(SandboxGeometry
   PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/Precompiled.cpp
@@ -23,6 +19,12 @@ target_sources(SandboxGeometry
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayIntersectionPoint2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayResult2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayResult2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionResult2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/IntersectionResult2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayTests2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/RayTests2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/ManifoldPoint2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/ManifoldPoint2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/Manifold2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Intersection2d/Manifold2d.hpp
 )
