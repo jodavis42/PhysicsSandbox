@@ -17,6 +17,10 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Components/Colliders/CircleCollider2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/RigidBody2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/RigidBody2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/CollisionLibrary.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/CollisionLibrary.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/ContactManifold2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/ContactManifold2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/Events.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/Events.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/ComponentCreatedEvent.cpp
@@ -27,6 +31,7 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterial.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterialManager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterialManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dPair.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Integration2d.cpp
