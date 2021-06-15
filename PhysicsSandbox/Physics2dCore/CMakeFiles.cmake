@@ -21,6 +21,8 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Detection/CollisionLibrary.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Detection/ContactManifold2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Detection/ContactManifold2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Collider2dRaycastResult.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Collider2dRaycastResult.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/Events.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/Events.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/ComponentCreatedEvent.cpp

@@ -18,6 +18,7 @@ class Collider2d;
 class PropertyChangedEvent;
 class Collider2dPair;
 class ContactManifold2d;
+class Collider2dRaycastResult;
 
 }//namespace Physics2dCore
 

@@ -16,7 +16,7 @@ public:
   bool TestIntersection(const Collider2d* collider0, const Collider2d* collider1, ContactManifold2d& manifold);
 
   bool CastPoint(const Vector2& point, const Collider2d* collider0);
-  bool CastRay(const Ray2d& ray, const Collider2d* collider, RayResult2d& result);
+  bool CastRay(const Ray2d& ray, const Collider2d* collider, Collider2dRaycastResult& raycastResult);
 
 private:
   template <typename ColliderType0, typename ColliderType1>
@@ -26,7 +26,7 @@ private:
   static bool PointCastGeneric(const Vector2& point, const Collider2d* collider);
 
   template <typename ColliderType>
-  static bool RayCastGeneric(const Ray2d& ray, const Collider2d* collider, RayResult2d& result);
+  static bool RayCastGeneric(const Ray2d& ray, const Collider2d* collider, Collider2dRaycastResult& result);
 
   typedef bool (*CollisionFunction)(const Collider2d* collider0, const Collider2d* collider1, ContactManifold2d& manifold);
   CollisionFunction mCollisionFunctions[2][2]{};
@@ -34,7 +34,7 @@ private:
   typedef bool (*PointTestFunction)(const Vector2& point, const Collider2d* collider);
   PointTestFunction mPointFunctions[2]{};
 
-  typedef bool (*RaycastFunction)(const Ray2d& ray, const Collider2d* collider, RayResult2d& result);
+  typedef bool (*RaycastFunction)(const Ray2d& ray, const Collider2d* collider, Collider2dRaycastResult& raycastResult);
   RaycastFunction mRaycastFunctions[2]{};
 };
 

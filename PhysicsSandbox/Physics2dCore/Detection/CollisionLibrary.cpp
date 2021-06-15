@@ -5,6 +5,7 @@
 #include "Physics2dCore/Components/Colliders/BoxCollider2d.hpp"
 #include "Physics2dCore/Components/Colliders/CircleCollider2d.hpp"
 #include "Physics2dCore/Utilities/Collider2dShapes.hpp"
+#include "Physics2dCore/Detection/Collider2dRaycastResult.hpp"
 #include "SandboxGeometry/Intersection2d/BooleanTests2d.hpp"
 #include "SandboxGeometry/Intersection2d/IntersectionTests2d.hpp"
 #include "SandboxGeometry/Intersection2d/PointTests2d.hpp"
@@ -41,10 +42,10 @@ bool CollisionLibrary::CastPoint(const Vector2& point, const Collider2d* collide
   return mPointFunctions[colliderType](point, collider);
 }
 
-bool CollisionLibrary::CastRay(const Ray2d& ray, const Collider2d* collider, RayResult2d& result)
+bool CollisionLibrary::CastRay(const Ray2d& ray, const Collider2d* collider, Collider2dRaycastResult& raycastResult)
 {
   Collider2dType::Enum colliderType = collider->GetColliderType();
-  return mRaycastFunctions[colliderType](ray, collider, result);
+  return mRaycastFunctions[colliderType](ray, collider, raycastResult);
 }
 
 template <typename ColliderType0, typename ColliderType1>
@@ -74,11 +75,14 @@ static bool CollisionLibrary::PointCastGeneric(const Vector2& point, const Colli
 }
 
 template <typename ColliderType>
-static bool CollisionLibrary::RayCastGeneric(const Ray2d& ray, const Collider2d* collider, RayResult2d& result)
+static bool CollisionLibrary::RayCastGeneric(const Ray2d& ray, const Collider2d* collider, Collider2dRaycastResult& raycastResult)
 {
   const ColliderType* typedCollider = static_cast<const ColliderType*>(collider);
   auto&& shape = Collider2dShapes::GetShape(*typedCollider);
-  return SandboxGeometry::RayTests2d::Test(ray, shape, result);
+  bool result = SandboxGeometry::RayTests2d::Test(ray, shape, raycastResult);
+  if(result)
+    raycastResult.mCollider = collider;
+  return result;
 }
 
 }//namespace Physics2dCore
