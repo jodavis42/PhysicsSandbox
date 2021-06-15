@@ -1,3 +1,4 @@
 add_subdirectory(SandboxGeometry)
+add_subdirectory(SandboxSpatialPartitions)
 add_subdirectory(Physics2dCore)
 add_subdirectory(Physics2dTCS)

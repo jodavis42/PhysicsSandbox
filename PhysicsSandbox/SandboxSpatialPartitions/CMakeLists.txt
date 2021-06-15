@@ -2,9 +2,9 @@
 get_filename_component(ParentDirectory ${CMAKE_CURRENT_SOURCE_DIR} DIRECTORY)
 set(CurrentDirectory ${CMAKE_CURRENT_LIST_DIR})
 
-add_library(Physics2dCore "") 
+add_library(SandboxSpatialPartitions "") 
 
-target_include_directories(Physics2dCore
+target_include_directories(SandboxSpatialPartitions
     PUBLIC 
         ${ParentDirectory}
         ${CurrentDirectory}
@@ -12,18 +12,15 @@ target_include_directories(Physics2dCore
 
 include(${CMAKE_CURRENT_LIST_DIR}/CMakeFiles.cmake)
 
-target_link_libraries(Physics2dCore
+target_link_libraries(SandboxSpatialPartitions
                       PUBLIC
                       Common
-                      Meta
-                      Serialization
-                      Engine
                       SandboxGeometry
-                      SandboxSpatialPartitions
+
 )
 
 zero_set_all_common_project_settings(
-  Target Physics2dCore 
+  Target SandboxSpatialPartitions 
   Filter PhysicsSandbox 
   PrecompiledHeader "Precompiled.hpp"
   PrecompiledSource "Precompiled.cpp"
