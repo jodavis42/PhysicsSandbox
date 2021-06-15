@@ -48,23 +48,8 @@ void Collider2dTCS::ComponentRemoved(BoundType* typeId, Component* component)
 
 Physics2dCore::ColliderMassProperties2d Collider2dTCS::GetMassProperties() const
 {
-  Physics2dCore::ColliderMassProperties2d results;
+  Physics2dCore::ColliderMassProperties2d results = mCollider2d->ComputeMassProperties();
   results.mDensity = mCollider2d->GetDensity();
-  auto&& colliderType = mCollider2d->GetColliderType();
-  if(colliderType == Physics2dCore::Collider2dType::Box2d)
-  {
-    const Physics2dCore::BoxCollider2d* boxCollider = static_cast<const Physics2dCore::BoxCollider2d*>(mCollider2d);
-    SandboxGeometry::Obb2d obb2d = Physics2dCore::Collider2dShapes::GetShape(*boxCollider);
-    results.mArea = obb2d.mHalfExtents[0] * obb2d.mHalfExtents[1] * 4;
-    results.mCenterOfMass = obb2d.mCenter;
-  }
-  else if(colliderType == Physics2dCore::Collider2dType::Box2d)
-  {
-    const Physics2dCore::CircleCollider2d* circleCollider = static_cast<const Physics2dCore::CircleCollider2d*>(mCollider2d);
-    SandboxGeometry::Circle2d circle2d = Physics2dCore::Collider2dShapes::GetShape(*circleCollider);
-    results.mArea = 2 * Math::cPi * circle2d.mRadius;
-    results.mCenterOfMass = circle2d.mCenter;
-  }
   return results;
 }
 

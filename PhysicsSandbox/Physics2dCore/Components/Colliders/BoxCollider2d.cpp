@@ -4,6 +4,7 @@
 
 #include "Events/PropertyChangedEvent.hpp"
 #include "Utilities/Collider2dShapes.hpp"
+#include "Utilities/MassProperties2d.hpp"
 
 using namespace Zero;
 
@@ -57,6 +58,20 @@ void BoxCollider2d::SetSize(const Vector2& size)
 {
   mSize = size;
   SendPropertyEvent(SizePropertyName, PropertyChangedFlags::RecomputeMassProperties | PropertyChangedFlags::UpdateSpatialPartition);
+}
+
+Aabb2d BoxCollider2d::GetAabb() const
+{
+  return Collider2dShapes::GetAabb(*this);
+}
+
+ColliderMassProperties2d BoxCollider2d::ComputeMassProperties() const
+{
+  ColliderMassProperties2d results;
+  SandboxGeometry::Obb2d obb2d = Physics2dCore::Collider2dShapes::GetShape(*this);
+  results.mArea = obb2d.mHalfExtents[0] * obb2d.mHalfExtents[1] * 4;
+  results.mCenterOfMass = obb2d.mCenter;
+  return results;
 }
 
 }//namespace Physics2dCore

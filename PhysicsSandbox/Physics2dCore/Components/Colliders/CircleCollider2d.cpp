@@ -4,6 +4,7 @@
 
 #include "Events/PropertyChangedEvent.hpp"
 #include "Utilities/Collider2dShapes.hpp"
+#include "Utilities/MassProperties2d.hpp"
 
 using namespace Zero;
 
@@ -52,6 +53,20 @@ void CircleCollider2d::SetRadius(float radius)
 {
   mRadius = radius;
   SendPropertyEvent(RadiusPropertyName, PropertyChangedFlags::RecomputeMassProperties | PropertyChangedFlags::UpdateSpatialPartition);
+}
+
+Aabb2d CircleCollider2d::GetAabb() const
+{
+  return Collider2dShapes::GetAabb(*this);
+}
+
+ColliderMassProperties2d CircleCollider2d::ComputeMassProperties() const
+{
+  ColliderMassProperties2d results;
+  Circle2d circle2d = Physics2dCore::Collider2dShapes::GetShape(*this);
+  results.mArea = 2 * Math::cPi * circle2d.mRadius;
+  results.mCenterOfMass = circle2d.mCenter;
+  return results;
 }
 
 }//namespace Physics2dCore

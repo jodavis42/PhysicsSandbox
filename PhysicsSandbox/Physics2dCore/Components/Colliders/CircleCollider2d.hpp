@@ -21,6 +21,9 @@ public:
   float GetRadius() const;
   void SetRadius(float radius);
 
+  Aabb2d GetAabb() const override;
+  ColliderMassProperties2d ComputeMassProperties() const override;
+
 private:
   float mRadius;
 };

@@ -6,6 +6,8 @@
 #include "Events/Events.hpp"
 #include "Events/PropertyChangedEvent.hpp"
 #include "Resources/Physics2dMaterial.hpp"
+#include "SandboxGeometry/Shapes2d/Aabb2d.hpp"
+#include "Physics2dCore/Utilities/MassProperties2d.hpp"
 
 using namespace Zero;
 
@@ -128,6 +130,16 @@ Matrix4 Collider2d::GetFullWorldTransform() const
   Matrix4 preTranslationTransform = Matrix4::GenerateTranslation(Math::ToVector3(mPositionOffset, 0));
 
   return Math::Multiply(worldTransform, Math::Multiply(preTranslationTransform, preRotationTransform));
+}
+
+Aabb2d Collider2d::GetAabb() const
+{
+  return Aabb2d();
+}
+
+ColliderMassProperties2d Collider2d::ComputeMassProperties() const
+{
+  return ColliderMassProperties2d();
 }
 
 void Collider2d::SendPropertyEvent(StringParam propName, int flags)

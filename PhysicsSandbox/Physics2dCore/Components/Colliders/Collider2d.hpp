@@ -42,6 +42,9 @@ public:
 
   Matrix4 GetFullWorldTransform() const;
 
+  virtual Aabb2d GetAabb() const;
+  virtual ColliderMassProperties2d ComputeMassProperties() const;
+
 protected:
   void SendPropertyEvent(StringParam propName, int flags);
 

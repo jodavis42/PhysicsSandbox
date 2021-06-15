@@ -35,4 +35,21 @@ SandboxGeometry::Circle2d Collider2dShapes::GetShape(const CircleCollider2d& col
   return result;
 }
 
+SandboxGeometry::Aabb2d Collider2dShapes::GetAabb(const BoxCollider2d& collider)
+{
+  SandboxGeometry::Obb2d obb = GetShape(collider);
+  
+  Matrix2 absRotation;
+  for(size_t axis = 0; axis < 2; ++axis)
+    absRotation.SetBasis(axis, Math::Abs(absRotation.GetBasis(axis)));
+  Vector2 halfExtents = Math::Multiply(absRotation, obb.mHalfExtents);
+  return SandboxGeometry::Aabb2d::FromCenterAndHalfExtents(obb.mCenter, halfExtents);
+}
+
+SandboxGeometry::Aabb2d Collider2dShapes::GetAabb(const CircleCollider2d& collider)
+{
+  SandboxGeometry::Circle2d circle = GetShape(collider);
+  return SandboxGeometry::Aabb2d::FromCenterAndHalfExtents(circle.mCenter, Vector2(circle.mRadius));
+}
+
 }//namespace Physics2dCore

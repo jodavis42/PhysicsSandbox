@@ -21,6 +21,9 @@ public:
   Vector2 GetSize() const;
   void SetSize(const Vector2& size);
 
+  Aabb2d GetAabb() const override;
+  ColliderMassProperties2d ComputeMassProperties() const override;
+
 private:
   Vector2 mSize = Vector2(1, 1);
 };
