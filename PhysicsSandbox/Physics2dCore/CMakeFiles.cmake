@@ -38,6 +38,11 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Events/ComponentCreatedEvent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/PropertyChangedEvent.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/PropertyChangedEvent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Queries/Collider2dCastResult.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Queries/Collider2dCastResult.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Queries/Collider2dCastResults.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Queries/Collider2dCastResults.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Queries/SortedResults.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterial.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterial.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterialManager.cpp
