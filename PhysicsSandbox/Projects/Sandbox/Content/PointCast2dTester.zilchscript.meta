@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "PointCast2dTester"
+		var ResourceId = 0x6090c9640abf34b0
+	}
+}

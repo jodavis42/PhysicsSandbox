@@ -130,7 +130,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 8.98657322
+			var Size = 36.4423027
 		}
 		EditorCameraController 
 		{
@@ -220,12 +220,160 @@ Level
 	}
 	Cog [ContextId:5]
 	{
-		var Name = "Cube"
+		var Name = "Sphere"
+		Transform 
+		{
+			var Translation = Real3{5.10020733, 0, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Model 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "583afb5e7bf75e18:ZeroMaterial"
+			var Mesh = "4de0354322b376ae:Sphere"
+		}
+		CircleCollider2d 
+		{
+			var Ghost = false
+			var SendsCollisionEvents = true
+			var Material = "4de1f0a65e872da8:DefaultPhysics2dMaterial"
+			var PositionOffset = Real2{0, 0}
+			var RotationOffset = 0
+			var Radius = 0.5
+		}
+		Collider2dTCS 
+		{
+		}
+		RigidBody2d 
+		{
+			var MassComputationMode = MassComputationMode.Automatic
+			var LinearVelocity = Real2{0, 0}
+			var AngularVelocity = 0
+		}
+		RigidBody2dTCS 
+		{
+		}
+	}
+	Cog [ContextId:6]
+	{
+		var Name = "CasterGroup"
 		Transform 
 		{
 			var Translation = Real3{0, 0, 0}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Hierarchy 
+		{
+			Cog [Id:0x60953712cbb1ec7e][ContextId:7]
+			{
+				var Name = "Caster"
+				Transform 
+				{
+					var Translation = Real3{0, -3.7518096, 7.46729469e-08}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0, 1}
+				}
+				RayCast2dTester 
+				{
+				}
+				Orientation 
+				{
+					var GlobalUp = Real3{0, 1, 0}
+					var LocalOrientationBasis = Quaternion{0, 0, 0, 1}
+					var DefaultBases = OrientationBases.ForwardNegativeZUpY
+				}
+				SimpleRotator 
+				{
+					var RotationSpeed = 0
+				}
+			}
+			Cog [Id:0x60953718cdc4fcdc][ContextId:8]
+			{
+				var Name = "Caster"
+				Transform 
+				{
+					var Translation = Real3{-3.27149343, 0.136301279, 7.46729469e-08}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, -0.707106829, 0.707106829}
+				}
+				RayCast2dTester 
+				{
+				}
+				Orientation 
+				{
+					var GlobalUp = Real3{0, 1, 0}
+					var LocalOrientationBasis = Quaternion{0, 0, 0, 1}
+					var DefaultBases = OrientationBases.ForwardNegativeZUpY
+				}
+				SimpleRotator 
+				{
+					var RotationSpeed = 0
+				}
+			}
+			Cog [Id:0x6095373ca2111e66][ContextId:9]
+			{
+				var Name = "Caster"
+				Transform 
+				{
+					var Translation = Real3{1.93549109, 0.136300966, 7.46729469e-08}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 0.707106829, 0.707106829}
+				}
+				RayCast2dTester 
+				{
+				}
+				Orientation 
+				{
+					var GlobalUp = Real3{0, 1, 0}
+					var LocalOrientationBasis = Quaternion{0, 0, 0, 1}
+					var DefaultBases = OrientationBases.ForwardNegativeZUpY
+				}
+				SimpleRotator 
+				{
+					var RotationSpeed = 0
+				}
+			}
+			Cog [Id:0x609537c7a131d4cc][ContextId:10]
+			{
+				var Name = "Caster"
+				Transform 
+				{
+					var Translation = Real3{-0.291180819, 2.56851029, 7.46729469e-08}
+					var Scale = Real3{1, 1, 1}
+					var Rotation = Quaternion{0, 0, 1, -4.37113883e-08}
+				}
+				RayCast2dTester 
+				{
+				}
+				Orientation 
+				{
+					var GlobalUp = Real3{0, 1, 0}
+					var LocalOrientationBasis = Quaternion{0, 0, 0, 1}
+					var DefaultBases = OrientationBases.ForwardNegativeZUpY
+				}
+				SimpleRotator 
+				{
+					var RotationSpeed = 0
+				}
+			}
+		}
+	}
+	Cog [ContextId:11]
+	{
+		var Name = "Cube"
+		Transform 
+		{
+			var Translation = Real3{-0.856412351, 0, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, -0.0857071951, 0.996320367}
 		}
 		Model 
 		{
@@ -243,7 +391,7 @@ Level
 		{
 			var MassComputationMode = MassComputationMode.Automatic
 			var LinearVelocity = Real2{0, 0}
-			var AngularVelocity = 1
+			var AngularVelocity = 0.5
 		}
 		RigidBody2dTCS 
 		{
@@ -253,8 +401,8 @@ Level
 			var Ghost = false
 			var SendsCollisionEvents = true
 			var Material = "4de1f0a65e872da8:DefaultPhysics2dMaterial"
-			var PositionOffset = Real2{1, 0}
-			var RotationOffset = 1
+			var PositionOffset = Real2{0, 0}
+			var RotationOffset = 0
 			var Size = Real2{1, 1}
 		}
 		Collider2dTCS 
@@ -265,139 +413,21 @@ Level
 		}
 		Hierarchy 
 		{
-			Cog [Id:0x60ea2b01c7b9ccae][ContextId:6]
-			{
-				var Name = "Transform"
-				Transform 
-				{
-					var Translation = Real3{0, 1, 0}
-					var Scale = Real3{1, 1, 1}
-					var Rotation = Quaternion{0, 0, 0, 1}
-				}
-				Model 
-				{
-					var Visible = true
-					var ViewCulling = true
-					var VisibilityEvents = true
-					var OverrideBoundingBox = false
-					var LocalAabbCenter = Real3{0, 0, 0}
-					var LocalAabbHalfExtents = Real3{1, 1, 1}
-					var GroupSortValue = 0
-					var Material = "583afb5e7bf75e18:ZeroMaterial"
-					var Mesh = "4de0354322b345ae:Cube"
-				}
-				Collider2dTCS 
-				{
-				}
-				BoxCollider2d 
-				{
-					var Ghost = false
-					var SendsCollisionEvents = true
-					var Material = "4de1f0a65e872da8:DefaultPhysics2dMaterial"
-					var PositionOffset = Real2{0, 0}
-					var RotationOffset = 0
-					var Size = Real2{1, 1}
-				}
-			}
 		}
 	}
-	Cog [ContextId:7]
-	{
-		var Name = "Sphere"
-		Transform 
-		{
-			var Translation = Real3{2, -1, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Model 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "583afb5e7bf75e18:ZeroMaterial"
-			var Mesh = "4de0354322b376ae:Sphere"
-		}
-		CircleCollider2d 
-		{
-			var Ghost = false
-			var SendsCollisionEvents = true
-			var Material = "4de1f0a65e872da8:DefaultPhysics2dMaterial"
-			var PositionOffset = Real2{0, 0}
-			var RotationOffset = 0
-			var Radius = 0.5
-		}
-		Collider2dTCS 
-		{
-		}
-		RigidBody2d 
-		{
-			var MassComputationMode = MassComputationMode.Automatic
-			var LinearVelocity = Real2{0, 0}
-			var AngularVelocity = 0
-		}
-		RigidBody2dTCS 
-		{
-		}
-	}
-	Cog [ContextId:8]
-	{
-		var Name = "Sphere"
-		Transform 
-		{
-			var Translation = Real3{2.9000001, -1, 0}
-			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
-		}
-		Model 
-		{
-			var Visible = true
-			var ViewCulling = true
-			var VisibilityEvents = true
-			var OverrideBoundingBox = false
-			var LocalAabbCenter = Real3{0, 0, 0}
-			var LocalAabbHalfExtents = Real3{1, 1, 1}
-			var GroupSortValue = 0
-			var Material = "583afb5e7bf75e18:ZeroMaterial"
-			var Mesh = "4de0354322b376ae:Sphere"
-		}
-		CircleCollider2d 
-		{
-			var Ghost = false
-			var SendsCollisionEvents = true
-			var Material = "4de1f0a65e872da8:DefaultPhysics2dMaterial"
-			var PositionOffset = Real2{0, 0}
-			var RotationOffset = 0
-			var Radius = 0.5
-		}
-		Collider2dTCS 
-		{
-		}
-		RigidBody2d 
-		{
-			var MassComputationMode = MassComputationMode.Automatic
-			var LinearVelocity = Real2{0, 0}
-			var AngularVelocity = 0
-		}
-		RigidBody2dTCS 
-		{
-		}
-	}
-	Cog [ContextId:9]
+	Cog [ContextId:12]
 	{
 		var Name = "Transform"
 		Transform 
 		{
-			var Translation = Real3{1.70831776, -3.7518096, 7.46729469e-08}
+			var Translation = Real3{1.70831776, -0.659150004, 7.46729469e-08}
 			var Scale = Real3{1, 1, 1}
 			var Rotation = Quaternion{0, 0, 0, 1}
 		}
-		RayCast2dTester 
+		PointCast2dTester 
 		{
+			var Active = true
+			var PointRadius = 0.0500000007
 		}
 	}
 }

@@ -1,0 +1,26 @@
+class RayCast2dTester : ZilchComponent
+{
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.FrameUpdate, this.OnFrameUpdate);
+  }
+
+  function OnFrameUpdate(event : UpdateEvent)
+  {
+    var transform = this.Owner.Transform;
+    var ray = Ray2d();
+    ray.Start = transform.WorldTranslation.XY;
+    ray.Direction = Math.Multiply(transform.WorldRotation, Real3.YAxis).XY;
+    
+    var results = this.Space.PhysicsSpace2dTCS.CastResults(ray);
+    var time = 10.0;
+    var color = Colors.Blue;
+    if(results.Size != 0 && results[0].Time >= 0)
+    {
+      color = Colors.Red;
+      time = results[0].Time;
+    }
+    
+    DebugDraw.Add(DebugLine(Real3(ray.Start, 0), Real3(ray.Start + ray.Direction * time, 0)) {Color = color, HeadSize = 0.1});
+  }
+}

@@ -1,0 +1,20 @@
+class SimpleRotator : ZilchComponent
+{
+  [Property] var RotationSpeed = 1;
+  
+  var RotationRadians = 0.0;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    
+    
+    this.RotationRadians = Math.Angle2D(this.Owner.Orientation.WorldRight);
+  }
+
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    this.RotationRadians += event.Dt * this.RotationSpeed;
+    this.Owner.Transform.Rotation = Math.ToQuaternion(Real3(0, 0, 1), this.RotationRadians);
+  }
+}

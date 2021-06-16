@@ -1,0 +1,28 @@
+class PointCast2dTester : ZilchComponent
+{
+  [Property] var Active : Boolean = true;
+  [Property] var PointRadius : Real = 0.05;
+  
+  function Initialize(init : CogInitializer)
+  {
+    Zero.Connect(this.Space, Events.FrameUpdate, this.OnFrameUpdate);
+  }
+
+  function OnFrameUpdate(event : UpdateEvent)
+  {
+    if(!this.Active)
+      return;
+    
+    var transform = this.Owner.Transform;
+    var point = transform.WorldTranslation.XY;
+    
+    var hit = this.Space.PhysicsSpace2dTCS.Cast(point);
+    var color = Colors.Blue;
+    if(hit)
+    {
+      color = Colors.Red;
+    }
+    
+    DebugDraw.Add(DebugSphere(Real3(point, 0), this.PointRadius) {Color = color});
+  }
+}

@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "SimpleRotator"
+		var ResourceId = 0x609537d4ac9c7478
+	}
+}
