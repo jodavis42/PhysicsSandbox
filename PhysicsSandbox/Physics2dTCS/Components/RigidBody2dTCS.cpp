@@ -63,6 +63,11 @@ void RigidBody2dTCS::OnRigidBody2dPropertyChanged(PropertyChangedEvent* e)
     QueueMassUpdate();
 }
 
+BroadphaseLayerType::Enum RigidBody2dTCS::GetLayerType()
+{
+  return BroadphaseLayerType::Dynamic;
+}
+
 void RigidBody2dTCS::QueueMassUpdate()
 {
   mMassQueueEntry.mUpdateMassProperties = true;

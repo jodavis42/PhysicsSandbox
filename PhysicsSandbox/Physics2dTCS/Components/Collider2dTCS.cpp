@@ -38,11 +38,20 @@ void Collider2dTCS::Initialize(Zero::CogInitializer& initializer)
   ConnectThisTo(GetOwner(), Physics2dCore::Events::Collider2dPropertyChanged, OnCollider2dPropertyChanged);
 }
 
+void Collider2dTCS::TransformUpdate(Zero::TransformUpdateInfo& info)
+{
+  if((info.TransformFlags & ~Zero::TransformUpdateFlags::Physics) != 0)
+  {
+    QueueBroadphaseUpdate();
+  }
+}
+
 void Collider2dTCS::ComponentRemoved(BoundType* typeId, Component* component)
 {
   if(typeId == ZilchTypeId(Collider2d))
   {
     mPhysicsSpace2d->Remove(this);
+    QueueBroadphaseRemove();
   }
 }
 
@@ -61,9 +70,31 @@ void Collider2dTCS::OnCollider2dPropertyChanged(PropertyChangedEvent* e)
     QueueBroadphaseUpdate();
 }
 
+BroadphaseLayerType::Enum Collider2dTCS::GetLayerType()
+{
+  RigidBody2dTCS* body = GetOwner()->has(RigidBody2dTCS);
+  if(body == nullptr)
+    return BroadphaseLayerType::Static;
+  return body->GetLayerType();
+}
+
+void Collider2dTCS::QueueBroadphaseInsert()
+{
+  mPhysicsSpace2d->QueueBroadphaseUpdate(this);
+  mBroadphaseQueueEntry.QueueInsert(BroadphaseLayerType::Dynamic);
+  
+}
+
 void Collider2dTCS::QueueBroadphaseUpdate()
 {
   mPhysicsSpace2d->QueueBroadphaseUpdate(this);
+  mBroadphaseQueueEntry.QueueUpdate(BroadphaseLayerType::Dynamic);
+}
+
+void Collider2dTCS::QueueBroadphaseRemove()
+{
+  mPhysicsSpace2d->QueueBroadphaseUpdate(this);
+  mBroadphaseQueueEntry.QueueRemove(BroadphaseLayerType::Dynamic);
 }
 
 }//namespace Physics2dTCS

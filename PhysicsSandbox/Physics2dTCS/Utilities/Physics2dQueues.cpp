@@ -30,12 +30,12 @@ void Physics2dQueues::Queue(TransformCacheQueueEntry& entry)
   mTransformQueue.PushBack(&entry);
 }
 
-void Physics2dQueues::Update(float dt)
+void Physics2dQueues::Update(UpdateContext& context)
 {
   mHierarchyBuildingTask.Update();
-  UpdateMasses(dt);
-  UpdateBroadphase(dt);
-  UpdateTransformCache(dt);
+  UpdateMasses(context.mDt);
+  UpdateBroadphase(context.mDt, context.mBroadphaseManager);
+  UpdateTransformCache(context.mDt);
 }
 
 void Physics2dQueues::UpdateMasses(float dt)
@@ -49,12 +49,12 @@ void Physics2dQueues::UpdateMasses(float dt)
   mMassQueue.Clear();
 }
 
-void Physics2dQueues::UpdateBroadphase(float dt)
+void Physics2dQueues::UpdateBroadphase(float dt, IBroadphase2dManager* broadphase)
 {
   for(auto&& range = mBroadphaseQueue.All(); !range.Empty(); range.PopFront())
   {
     auto&& entry = range.Front();
-    entry.Update(dt);
+    entry.Update(dt, broadphase);
     entry.mQueued = false;
   }
   mBroadphaseQueue.Clear();

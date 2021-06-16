@@ -26,6 +26,7 @@ public:
   void UpdateAfterIntegrationInternal(const Vector2& worldCenterOfMass, float worldRotation);
   void OnRigidBody2dPropertyChanged(PropertyChangedEvent* e);
 
+  BroadphaseLayerType::Enum GetLayerType();
   void QueueMassUpdate();
   
   RigidBody2d* mRigidBody2d = nullptr;

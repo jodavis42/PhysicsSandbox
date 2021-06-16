@@ -21,11 +21,15 @@ public:
   void Initialize(Zero::CogInitializer& initializer);
 
   Physics2dCore::ColliderMassProperties2d GetMassProperties() const;
+  void TransformUpdate(Zero::TransformUpdateInfo& info) override;
   void ComponentRemoved(BoundType* typeId, Component* component) override;
 
   void OnCollider2dPropertyChanged(PropertyChangedEvent* e);
 
+  BroadphaseLayerType::Enum GetLayerType();
+  void QueueBroadphaseInsert();
   void QueueBroadphaseUpdate();
+  void QueueBroadphaseRemove();
   
   Collider2d* mCollider2d = nullptr;
   RigidBody2dTCS* mActiveBody = nullptr;

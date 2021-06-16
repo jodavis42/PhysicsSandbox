@@ -20,6 +20,7 @@ class PhysicsSpace2dTCS : public Zero::Component
 public:
   ZilchDeclareType(PhysicsSpace2dTCS, TypeCopyMode::ReferenceType);
 
+  ~PhysicsSpace2dTCS();
   void Initialize(Zero::CogInitializer& initializer);
   void OnSystemLogicUpdate(Zero::UpdateEvent* updateEvent);
 
@@ -42,6 +43,7 @@ public:
   BaseInList<RigidBody2dTCS, RigidBody2dTCS, &RigidBody2dTCS::mSpaceLink> mRigidBodies;
   BaseInList<Collider2dTCS, Collider2dTCS, &Collider2dTCS::mSpaceLink> mColliders;
   Physics2dQueues mQueues;
+  Physics2dCore::IBroadphase2dManager* mBroadphaseManager = nullptr;
 };
 
 }//namespace Physics2d

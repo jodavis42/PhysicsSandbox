@@ -2,6 +2,8 @@
 
 #include "Physics2dStandardTCS.hpp"
 
+#include "SandboxSpatialPartitions/Broadphase2d/CoreStructs.hpp"
+
 namespace Physics2dTCS
 {
 
@@ -10,15 +12,24 @@ namespace Physics2dTCS
 class BroadphaseQueueEntry
 {
 public:
+  using MaskType = unsigned char;
   void Initialize(Collider2dTCS* collider);
-  void Update(float dt);
+
+  void QueueInsert(BroadphaseLayerType::Enum layerType);
+  void QueueUpdate(BroadphaseLayerType::Enum layerType);
+  void QueueRemove(BroadphaseLayerType::Enum layerType);
+  
+  void Update(float dt, IBroadphase2dManager* broadphase);
 
   bool mQueued = false;
-  bool mInsert = false;
-  bool mUpdate = false;
-  bool mRemove = false;
+  MaskType mInsert;
+  MaskType mUpdate;
+  MaskType mRemove;
+
+  BroadphaseLayerType::Enum mCurrentLayer = (BroadphaseLayerType::Enum)-1;
   Collider2dTCS* mCollider = nullptr;
 
+  SandboxBroadphase2d::BroadphaseKey mKey;
   Link<BroadphaseQueueEntry> mLink;
 };
 

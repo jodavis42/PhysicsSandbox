@@ -11,6 +11,11 @@
 #include "Physics2dTCS/Components/RigidBody2dTCS.hpp"
 #include "Engine/Time.hpp"
 #include "Engine/Cog.hpp"
+#include "SandboxGeometry/Shapes2d/Ray2d.hpp"
+#include "Physics2dCore/Detection/Collider2dRaycastResult.hpp"
+#include "Physics2dCore/Detection/CollisionLibrary.hpp"
+#include "Physics2dCore/Detection/Broadphase/SimpleBroadphase2dManager.hpp"
+#include "SandboxSpatialPartitions/Broadphase2d/NSquaredAabbBroadphase2d.hpp"
 
 using namespace Zero;
 
@@ -26,11 +31,20 @@ ZilchDefineType(PhysicsSpace2dTCS, builder, type)
   ZeroBindDependency(Zero::Space);
 }
 
+PhysicsSpace2dTCS::~PhysicsSpace2dTCS()
+{
+  delete mBroadphaseManager;
+}
+
 void PhysicsSpace2dTCS::Initialize(Zero::CogInitializer& initializer)
 {
   ConnectThisTo(GetOwner(), Zero::Events::SystemLogicUpdate, OnSystemLogicUpdate);
   ConnectThisTo(GetOwner(), Physics2dCore::Events::Collider2dCreated, OnCollider2dCreated);
   ConnectThisTo(GetOwner(), Physics2dCore::Events::RigidBody2dCreated, OnRigidBody2dCreated);
+
+  auto broadphaseManager = new Physics2dCore::SimpleBroadphase2dManager();
+  broadphaseManager->Set(new SandboxBroadphase2d::NSquaredAabbBroadphase2d());
+  mBroadphaseManager = broadphaseManager;
 }
 
 void PhysicsSpace2dTCS::OnSystemLogicUpdate(Zero::UpdateEvent* updateEvent)
@@ -48,7 +62,10 @@ void PhysicsSpace2dTCS::IterateTimestep(float dt)
 
 void PhysicsSpace2dTCS::UpdateQueues(float dt)
 {
-  mQueues.Update(dt);
+  Physics2dQueues::UpdateContext context;
+  context.mBroadphaseManager = mBroadphaseManager;
+  context.mDt = dt;
+  mQueues.Update(context);
 }
 
 void PhysicsSpace2dTCS::IntegrateBodiesVelocity(float dt)
@@ -81,6 +98,8 @@ void PhysicsSpace2dTCS::IntegrateBodiesPosition(float dt)
     float worldRotation = body->GetWorldRotation();
     Physics2dCore::Integration2d::IntegratePositionEuler(dt, body->GetLinearVelocity(), body->GetAngularVelocity(), worldCenterOfMass, worldRotation);
     bodyTCS.UpdateAfterIntegrationInternal(worldCenterOfMass, worldRotation);
+    for(auto colliderRange = bodyTCS.mColliders.All(); !colliderRange.Empty(); colliderRange.PopFront())
+      colliderRange.Front().QueueBroadphaseUpdate();
   }
 }
 

@@ -13,6 +13,13 @@ class Circle2d;
 
 }//SandboxGeometry2d
 
+namespace SandboxBroadphase2d
+{
+
+class IBroadphase2d;
+
+}//SandboxBroadphase2d
+
 namespace Physics2dCore
 {
 
@@ -28,6 +35,8 @@ using Ray2d = SandboxGeometry::Ray2d;
 using RayResult2d = SandboxGeometry::RayResult2d;
 using Aabb2d = SandboxGeometry::Aabb2d;
 using Circle2d = SandboxGeometry::Circle2d;
+using IBroadphase2d = SandboxBroadphase2d::IBroadphase2d;
+
 class Physics2dMaterial;
 class Collider2d;
 class BoxCollider2d;

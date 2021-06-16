@@ -23,6 +23,15 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Detection/ContactManifold2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Detection/Collider2dRaycastResult.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Detection/Collider2dRaycastResult.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/BroadphaseLayerType.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/IBroadphase2dManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/IBroadphase2dManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/SimpleBroadphase2dManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/SimpleBroadphase2dManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/StaticDynamicBroadphase2dManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/StaticDynamicBroadphase2dManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/FullBroadphase2dManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Detection/Broadphase/FullBroadphase2dManager.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/Events.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/Events.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Events/ComponentCreatedEvent.cpp

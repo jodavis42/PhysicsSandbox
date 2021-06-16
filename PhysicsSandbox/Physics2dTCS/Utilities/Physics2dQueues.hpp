@@ -17,13 +17,19 @@ namespace Physics2dTCS
 class Physics2dQueues
 {
 public:
+  struct UpdateContext
+  {
+    float mDt;
+    IBroadphase2dManager* mBroadphaseManager = nullptr;
+  };
+
   void Queue(MassComputationQueueEntry& entry);
   void Queue(BroadphaseQueueEntry& entry);
   void Queue(TransformCacheQueueEntry& entry);
 
-  void Update(float dt);
+  void Update(UpdateContext& context);
   void UpdateMasses(float dt);
-  void UpdateBroadphase(float dt);
+  void UpdateBroadphase(float dt, IBroadphase2dManager* broadphase);
   void UpdateTransformCache(float dt);
 
   InList<TransformCacheQueueEntry, &TransformCacheQueueEntry::mLink> mTransformQueue;
