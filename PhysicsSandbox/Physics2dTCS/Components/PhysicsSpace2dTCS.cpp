@@ -29,11 +29,24 @@ ZilchDefineType(PhysicsSpace2dTCS, builder, type)
   ZeroBindComponent();
   ZeroBindDocumented();
   ZeroBindDependency(Zero::Space);
+
+  ZilchBindOverloadedMethod(Cast, ZilchInstanceOverload(bool, const Vector2&));
+  ZilchBindOverloadedMethod(CastResults, ZilchInstanceOverload(Physics2dCore::Collider2dCastResults, const Vector2&));
+  ZilchBindOverloadedMethod(CastResults, ZilchInstanceOverload(Physics2dCore::Collider2dCastResults, const Vector2&, int));
+  ZilchBindOverloadedMethod(Cast, ZilchInstanceOverload(float, const Ray2d&));
+  ZilchBindOverloadedMethod(CastResults, ZilchInstanceOverload(Physics2dCore::Collider2dCastResults, const Ray2d&));
+  ZilchBindOverloadedMethod(CastResults, ZilchInstanceOverload(Physics2dCore::Collider2dCastResults, const Ray2d&, int));
+}
+
+PhysicsSpace2dTCS::PhysicsSpace2dTCS()
+{
+  mCollisionLibrary = new Physics2dCore::CollisionLibrary();
 }
 
 PhysicsSpace2dTCS::~PhysicsSpace2dTCS()
 {
   delete mBroadphaseManager;
+  delete mCollisionLibrary;
 }
 
 void PhysicsSpace2dTCS::Initialize(Zero::CogInitializer& initializer)
@@ -57,7 +70,31 @@ void PhysicsSpace2dTCS::IterateTimestep(float dt)
 {
   UpdateQueues(dt);
   IntegrateBodiesVelocity(dt);
+  DetectCollisions();
   IntegrateBodiesPosition(dt);
+}
+
+void PhysicsSpace2dTCS::DetectCollisions()
+{
+  Array<Physics2dCore::Collider2dPair> possiblePairs;
+  Broadphase(possiblePairs);
+  NarrowPhase(possiblePairs);
+}
+
+void PhysicsSpace2dTCS::Broadphase(Array<Physics2dCore::Collider2dPair>& possiblePairs)
+{
+  mBroadphaseManager->SelfQuery(BroadphaseLayerType::Dynamic, possiblePairs);
+}
+
+void PhysicsSpace2dTCS::NarrowPhase(Array<Physics2dCore::Collider2dPair>& possiblePairs)
+{
+  for(auto&& range = possiblePairs.All(); !range.Empty(); range.PopFront())
+  {
+    auto&& pair = range.Front();
+    Physics2dCore::ContactManifold2d manifold;
+    if(mCollisionLibrary->TestIntersection(pair.mColliders[0], pair.mColliders[1], manifold))
+      DebugDrawContactManifold(manifold);
+  }
 }
 
 void PhysicsSpace2dTCS::UpdateQueues(float dt)
@@ -109,6 +146,93 @@ void PhysicsSpace2dTCS::Publish()
   {
     auto&& body = range.Front();
     Physics2dCore::TransformComputation::UpdateTransform(*body.mRigidBody2d);
+  }
+}
+
+bool PhysicsSpace2dTCS::Cast(const Vector2& point)
+{
+  Physics2dCore::CollisionLibrary library;
+  bool hit = false;
+  for(auto&& range = mColliders.All(); !range.Empty(); range.PopFront())
+  {
+    Collider2d* collider = range.Front().mCollider2d;
+    hit |= library.CastPoint(point, collider);
+  }
+  return hit;
+}
+
+Physics2dCore::Collider2dCastResults PhysicsSpace2dTCS::CastResults(const Vector2& point)
+{
+  Physics2dCore::Collider2dCastResults results;
+  CastResultsInternal(point, results);
+  return results;
+}
+
+Physics2dCore::Collider2dCastResults PhysicsSpace2dTCS::CastResults(const Vector2& point, int maxCount)
+{
+  Physics2dCore::Collider2dCastResults results;
+  results.SetBounded(maxCount);
+  CastResultsInternal(point, results);
+  return results;
+}
+
+void PhysicsSpace2dTCS::CastResultsInternal(const Vector2& point, Physics2dCore::Collider2dCastResults& results)
+{
+  for(auto&& range = mColliders.All(); !range.Empty(); range.PopFront())
+  {
+    Collider2d* collider = range.Front().mCollider2d;
+    if(mCollisionLibrary->CastPoint(point, collider))
+      results.Add(Physics2dCore::Collider2dCastResult(0, collider));
+  }
+}
+
+float PhysicsSpace2dTCS::Cast(const Ray2d& ray)
+{
+  float tMin = Math::PositiveMax();
+  bool hit = false;
+  Array<const Collider2d*> colliders;
+  mBroadphaseManager->Raycast(BroadphaseLayerType::Dynamic, ray, colliders);
+  for(auto&& range = colliders.All(); !range.Empty(); range.PopFront())
+  {
+    const Collider2d* collider = range.Front();
+    Collider2dRaycastResult castResult;
+    if(mCollisionLibrary->CastRay(ray, collider, castResult))
+    {
+      hit = true;
+      tMin = Math::Min(tMin, castResult[0].mTime);
+    }
+  }
+  if(!hit)
+    tMin = -1;
+  return tMin;
+}
+
+
+Physics2dCore::Collider2dCastResults PhysicsSpace2dTCS::CastResults(const Ray2d& ray)
+{
+  Physics2dCore::Collider2dCastResults results;
+  CastResultsInternal(ray, results);
+  return results;
+}
+
+Physics2dCore::Collider2dCastResults PhysicsSpace2dTCS::CastResults(const Ray2d& ray, int maxCount)
+{
+  Physics2dCore::Collider2dCastResults results;
+  results.SetBounded(maxCount);
+  CastResultsInternal(ray, results);
+  return results;
+}
+
+void PhysicsSpace2dTCS::CastResultsInternal(const Ray2d& ray, Physics2dCore::Collider2dCastResults& results)
+{
+  Array<const Collider2d*> colliders;
+  mBroadphaseManager->Raycast(BroadphaseLayerType::Dynamic, ray, colliders);
+  for(auto&& range = colliders.All(); !range.Empty(); range.PopFront())
+  {
+    const Collider2d* collider = range.Front();
+    Collider2dRaycastResult castResult;
+    if(mCollisionLibrary->CastRay(ray, collider, castResult))
+      results.Add(Physics2dCore::Collider2dCastResult(castResult.mPoints[0].mTime, collider));
   }
 }
 
@@ -170,6 +294,24 @@ void PhysicsSpace2dTCS::QueueMassUpdate(RigidBody2dTCS* rigidBody)
 void PhysicsSpace2dTCS::QueueBroadphaseUpdate(Collider2dTCS* collider)
 {
   mQueues.Queue(collider->mBroadphaseQueueEntry);
+}
+
+void PhysicsSpace2dTCS::DebugDrawContactManifold(const Physics2dCore::ContactManifold2d& manifold)
+{
+  for(size_t subFeatureIndex = 0; subFeatureIndex < manifold.ContactSubFeatureContactCount(); ++subFeatureIndex)
+  {
+    auto&& subFeatureContact = manifold.GetSubFeatureContact(subFeatureIndex);
+    for(size_t pointIndex = 0; pointIndex < subFeatureContact.Size(); ++pointIndex)
+    {
+      auto&& point = subFeatureContact[pointIndex];
+      Vector3 p0 = Math::ToVector3(point.mPoints[0]);
+      Vector3 p1 = Math::ToVector3(point.mPoints[1]);
+      Vector3 n = Math::ToVector3(point.mNormal);
+      Zero::gDebugDraw->Add(Zero::Debug::Sphere(p0, 0.01f).Color(Color::Red).OnTop(true));
+      Zero::gDebugDraw->Add(Zero::Debug::Sphere(p1, 0.01f).Color(Color::Blue).OnTop(true));
+      Zero::gDebugDraw->Add(Zero::Debug::Line(p0, p0 - n * point.mPenetrationDistance).Color(Color::Green).HeadSize(0.01f).OnTop(true));
+    }
+  }
 }
 
 }//namespace Physics2d
