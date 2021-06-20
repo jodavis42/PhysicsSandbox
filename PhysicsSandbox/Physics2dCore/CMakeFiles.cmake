@@ -15,6 +15,12 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Components/Colliders/BoxCollider2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/Colliders/CircleCollider2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/Colliders/CircleCollider2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/Effects/Physics2dEffect.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/Effects/Physics2dEffect.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/Effects/Gravity2dEffect.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/Effects/Gravity2dEffect.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/Effects/Drag2dEffect.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/Effects/Drag2dEffect.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/RigidBody2d.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/RigidBody2d.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Detection/CollisionLibrary.cpp

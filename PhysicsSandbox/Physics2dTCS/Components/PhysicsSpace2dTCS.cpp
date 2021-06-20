@@ -3,12 +3,14 @@
 #include "PhysicsSpace2dTCS.hpp"
 
 #include "Physics2dCore/Components/RigidBody2d.hpp"
+#include "Physics2dCore/Components/Effects/Physics2dEffect.hpp"
 #include "Physics2dCore/Events/ComponentCreatedEvent.hpp"
 #include "Physics2dCore/Events/PropertyChangedEvent.hpp"
 #include "Physics2dCore/Events/Events.hpp"
 #include "Physics2dCore/Utilities/Integration2d.hpp"
 #include "Physics2dCore/Utilities/TransformComputation.hpp"
 #include "Physics2dTCS/Components/RigidBody2dTCS.hpp"
+#include "Physics2dTCS/Components/Physics2dEffectTCS.hpp"
 #include "Physics2dTCS/Resolution/Contact2dCache.hpp"
 #include "Engine/Time.hpp"
 #include "Engine/Cog.hpp"
@@ -60,6 +62,8 @@ void PhysicsSpace2dTCS::Initialize(Zero::CogInitializer& initializer)
   ConnectThisTo(GetOwner(), Zero::Events::SystemLogicUpdate, OnSystemLogicUpdate);
   ConnectThisTo(GetOwner(), Physics2dCore::Events::Collider2dCreated, OnCollider2dCreated);
   ConnectThisTo(GetOwner(), Physics2dCore::Events::RigidBody2dCreated, OnRigidBody2dCreated);
+  ConnectThisTo(GetOwner(), Physics2dCore::Events::Physics2dEffectCreated, OnPhysics2dEffectCreated);
+  ConnectThisTo(GetOwner(), Physics2dCore::Events::Physics2dEffectDestroyed, OnPhysics2dEffectDestroyed);
 
   auto broadphaseManager = new Physics2dCore::SimpleBroadphase2dManager();
   broadphaseManager->Set(new SandboxBroadphase2d::NSquaredAabbBroadphase2d());
@@ -130,21 +134,25 @@ void PhysicsSpace2dTCS::UpdateQueues(float dt)
 
 void PhysicsSpace2dTCS::IntegrateBodiesVelocity(float dt)
 {
-  Vector2 mGravity = Vector2(0, -9.81f);
   for(auto range = mRigidBodies.All(); !range.Empty(); range.PopFront())
   {
     auto&& body = range.Front().mRigidBody2d;
-    float invMass = body->GetInvMass();
-    Vector2 force = body->GetForce();
-    if(invMass != 0.0f)
-      force += mGravity / invMass;
 
+    float invMass = body->GetInvMass();
+    float invInertia = body->GetInvInertia();
     Vector2 linearVelocity = body->GetLinearVelocity();
     float angularVelocity = body->GetAngularVelocity();
-    Physics2dCore::Integration2d::IntegrateVelocityEuler(dt, body->GetInvMass(), body->GetInvInertia(), force, body->GetTorque(), linearVelocity, angularVelocity);
+    Vector2 force = body->GetForce();
+    float torque = body->GetTorque();
+    
+    for(auto&& effectRange = mEffects.All(); !effectRange.Empty(); effectRange.PopFront())
+      Physics2dEffectTCS::ComputeForces(*effectRange.Front(), dt, linearVelocity, invMass, force, angularVelocity, invInertia, torque);
+    
+    Physics2dCore::Integration2d::IntegrateVelocityEuler(dt, invMass, invInertia, force, torque, linearVelocity, angularVelocity);
     body->SetLinearVelocityNoEvent(linearVelocity);
     body->SetAngularVelocityNoEvent(angularVelocity);
     body->SetForce(Vector2::cZero);
+    body->SetTorque(0.0f);
   }
 }
 
@@ -269,6 +277,18 @@ void PhysicsSpace2dTCS::OnRigidBody2dCreated(Physics2dCore::ComponentCreatedEven
 {
   Cog* owner = e->mComponent->GetOwner();
   HasOrAdd<RigidBody2dTCS>(owner);
+}
+
+void PhysicsSpace2dTCS::OnPhysics2dEffectCreated(Physics2dCore::ComponentCreatedEvent* e)
+{
+  Physics2dEffect* effect = reinterpret_cast<Physics2dEffect*>(e->mComponent);
+  mEffects.PushBack(effect);
+}
+
+void PhysicsSpace2dTCS::OnPhysics2dEffectDestroyed(Physics2dCore::ComponentCreatedEvent* e)
+{
+  Physics2dEffect* effect = reinterpret_cast<Physics2dEffect*>(e->mComponent);
+  mEffects.EraseValue(effect);
 }
 
 void PhysicsSpace2dTCS::Add(RigidBody2dTCS* rigidBody)

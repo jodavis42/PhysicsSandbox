@@ -24,6 +24,7 @@ namespace Physics2dCore
 
 class RigidBody2d;
 class Collider2d;
+class Physics2dEffect;
 class PropertyChangedEvent;
 class Collider2dPair;
 class ContactManifold2d;
@@ -52,6 +53,7 @@ using IBroadphase2d = SandboxBroadphase2d::IBroadphase2d;
 
 using RigidBody2d = Physics2dCore::RigidBody2d;
 using Collider2d = Physics2dCore::Collider2d;
+using Physics2dEffect = Physics2dCore::Physics2dEffect;
 using Collider2dRaycastResult = Physics2dCore::Collider2dRaycastResult;
 using PropertyChangedEvent = Physics2dCore::PropertyChangedEvent;
 using IBroadphase2dManager = Physics2dCore::IBroadphase2dManager;

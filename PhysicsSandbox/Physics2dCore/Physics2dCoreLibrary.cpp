@@ -5,6 +5,9 @@
 #include "Components/Colliders/Collider2d.hpp"
 #include "Components/Colliders/BoxCollider2d.hpp"
 #include "Components/Colliders/CircleCollider2d.hpp"
+#include "Components/Effects/Physics2dEffect.hpp"
+#include "Components/Effects/Gravity2dEffect.hpp"
+#include "Components/Effects/Drag2dEffect.hpp"
 #include "Components/RigidBody2d.hpp"
 #include "Events/ComponentCreatedEvent.hpp"
 #include "Events/PropertyChangedEvent.hpp"
@@ -21,6 +24,7 @@ using namespace Physics2dCore;
 
 // Enums
 ZilchDefineEnum(MassComputationMode);
+ZilchDefineEnum(Physics2dEffectType);
 
 ZilchDefineExternalBaseType(Ray2d, TypeCopyMode::ValueType, builder, type)
 {
@@ -43,6 +47,7 @@ ZilchDefineStaticLibrary(Physics2dCoreLibrary)
 
   // Enums
   ZilchInitializeEnum(MassComputationMode);
+  ZilchInitializeEnum(Physics2dEffectType);
 
   // Events
   ZilchInitializeType(ComponentCreatedEvent);
@@ -59,6 +64,9 @@ ZilchDefineStaticLibrary(Physics2dCoreLibrary)
   ZilchInitializeType(Collider2d);
   ZilchInitializeType(BoxCollider2d);
   ZilchInitializeType(CircleCollider2d);
+  ZilchInitializeType(Physics2dEffect);
+  ZilchInitializeType(Gravity2dEffect);
+  ZilchInitializeType(Drag2dEffect);
 
   ZilchInitializeExternalType(Ray2d);
 

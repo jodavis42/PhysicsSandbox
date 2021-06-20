@@ -14,6 +14,8 @@ DefineEvent(Collider2dPropertyChanged);
 DefineEvent(RigidBody2dCreated);
 DefineEvent(RigidBody2dDestroyed);
 DefineEvent(RigidBody2dPropertyChanged);
+DefineEvent(Physics2dEffectCreated);
+DefineEvent(Physics2dEffectDestroyed);
 
 }//namespace Events
 

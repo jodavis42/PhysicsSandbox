@@ -13,6 +13,8 @@ DeclareEvent(Collider2dPropertyChanged);
 DeclareEvent(RigidBody2dCreated);
 DeclareEvent(RigidBody2dDestroyed);
 DeclareEvent(RigidBody2dPropertyChanged);
+DeclareEvent(Physics2dEffectCreated);
+DeclareEvent(Physics2dEffectDestroyed);
 
 }//namespace Events
 

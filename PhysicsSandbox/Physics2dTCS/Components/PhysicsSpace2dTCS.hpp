@@ -51,6 +51,8 @@ public:
 
   void OnCollider2dCreated(Physics2dCore::ComponentCreatedEvent* e);
   void OnRigidBody2dCreated(Physics2dCore::ComponentCreatedEvent* e);
+  void OnPhysics2dEffectCreated(Physics2dCore::ComponentCreatedEvent* e);
+  void OnPhysics2dEffectDestroyed(Physics2dCore::ComponentCreatedEvent* e);
 
   void Add(RigidBody2dTCS* rigidBody);
   void Remove(RigidBody2dTCS* rigidBody);
@@ -63,6 +65,7 @@ public:
 
   BaseInList<RigidBody2dTCS, RigidBody2dTCS, &RigidBody2dTCS::mSpaceLink> mRigidBodies;
   BaseInList<Collider2dTCS, Collider2dTCS, &Collider2dTCS::mSpaceLink> mColliders;
+  Array<Physics2dEffect*> mEffects;
   Physics2dQueues mQueues;
   Physics2dCore::IBroadphase2dManager* mBroadphaseManager = nullptr;
   Physics2dCore::CollisionLibrary* mCollisionLibrary = nullptr;
