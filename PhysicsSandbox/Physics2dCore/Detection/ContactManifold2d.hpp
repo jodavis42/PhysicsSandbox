@@ -11,6 +11,7 @@ namespace Physics2dCore
 //-------------------------------------------------------------------SubFeatureContactManifold2d
 class SubFeatureContactManifold2d : public SandboxGeometry::Manifold2d
 {
+public:
   size_t mFeatureId = -1;
 };
 
@@ -27,6 +28,8 @@ public:
   size_t ContactSubFeatureContactCount() const;
   SubFeatureContactManifold2d& GetSubFeatureContact(size_t index);
   const SubFeatureContactManifold2d& GetSubFeatureContact(size_t index) const;
+
+  size_t TotalPointCount() const;
 
   Collider2dPair mColliders;
   Zero::Array<SubFeatureContactManifold2d> mSubFeaturesContacts;

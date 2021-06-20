@@ -21,12 +21,12 @@ const Collider2d* ContactManifold2d::GetCollider(size_t index) const
 
 RigidBody2d* ContactManifold2d::GetRigidBody(size_t index)
 {
-  return mColliders[0]->GetOwner()->has(RigidBody2d);
+  return mColliders[index]->GetOwner()->has(RigidBody2d);
 }
 
 const RigidBody2d* ContactManifold2d::GetRigidBody(size_t index) const
 {
-  return mColliders[0]->GetOwner()->has(RigidBody2d);
+  return mColliders[index]->GetOwner()->has(RigidBody2d);
 }
 
 void ContactManifold2d::AddSubFeatureContact(const SubFeatureContactManifold2d& subFeatureContact)
@@ -47,6 +47,14 @@ SubFeatureContactManifold2d& ContactManifold2d::GetSubFeatureContact(size_t inde
 const SubFeatureContactManifold2d& ContactManifold2d::GetSubFeatureContact(size_t index) const
 {
   return mSubFeaturesContacts[index];
+}
+
+size_t ContactManifold2d::TotalPointCount() const
+{
+  size_t pointCount = 0;
+  for(size_t i = 0; i < ContactSubFeatureContactCount(); ++i)
+    pointCount += mSubFeaturesContacts[i].Size();
+  return pointCount;
 }
 
 }//namespace Physics2dCore
