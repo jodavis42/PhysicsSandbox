@@ -47,6 +47,22 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterial.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterialManager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resources/Physics2dMaterialManager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Jacobian2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Jacobian2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dVector.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dVector.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dVelocity.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dVelocity.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dMass.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dMass.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dMath.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dMath.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Body2dInfo.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Body2dInfo.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dAtom.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMolecule.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMoleculeWalker.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMoleculeWalker.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dPair.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.hpp
