@@ -24,7 +24,7 @@ bool Sat2d::Test(SatShape2d& shape0, SatShape2d& shape1, Manifold2d& manifold)
   }
   else
   {
-    BuildManifold(shape0, shape1, minAxis0, manifold);
+    BuildManifold(shape1, shape0, minAxis1, manifold);
     manifold.Flip();
   }
 
