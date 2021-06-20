@@ -134,7 +134,10 @@ bool IntersectionTests2d::CircleCircle(const Vector2& center0, float radius0, co
   float distance = Math::Sqrt(distSq);
   manifold.mPointCount = 1;
   ManifoldPoint2d& point = manifold.mPoints[0];
-  point.mNormal = v01 / distance;
+  if(distance == 0)
+    point.mNormal = Vector2::cYAxis;
+  else
+    point.mNormal = v01 / distance;
   point.mPoints[0] = center0 + radius0 * point.mNormal;
   point.mPoints[1] = center1 - radius1 * point.mNormal;
   point.mPenetrationDistance = radiiSum - distance;
