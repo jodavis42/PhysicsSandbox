@@ -16,6 +16,8 @@ class CollisionLibrary;
 namespace Physics2dTCS
 {
 
+class Contact2dCache;
+
 //-------------------------------------------------------------------PhysicsSpace2dTCS
 class PhysicsSpace2dTCS : public Zero::Component
 {
@@ -33,6 +35,7 @@ public:
   void DetectCollisions();
   void Broadphase(Array<Physics2dCore::Collider2dPair>& possiblePairs);
   void NarrowPhase(Array<Physics2dCore::Collider2dPair>& possiblePairs);
+  void ResolutionPhase(float dt);
   void IntegrateBodiesPosition(float dt);
   void Publish();
 
@@ -62,7 +65,9 @@ public:
   BaseInList<Collider2dTCS, Collider2dTCS, &Collider2dTCS::mSpaceLink> mColliders;
   Physics2dQueues mQueues;
   Physics2dCore::IBroadphase2dManager* mBroadphaseManager = nullptr;
-  Physics2dCore::CollisionLibrary* mCollisionLibrary;
+  Physics2dCore::CollisionLibrary* mCollisionLibrary = nullptr;
+  IConstraint2dSolver* mConstraintSolver = nullptr;
+  Contact2dCache* mContactCache = nullptr;
 };
 
 }//namespace Physics2d

@@ -29,6 +29,8 @@ class Collider2dPair;
 class ContactManifold2d;
 class IBroadphase2dManager;
 class Collider2dRaycastResult;
+class IConstraint2dSolver;
+class SimpleConstraint2dSolver;
 
 }//namespace Physics2dCore
 
@@ -53,7 +55,12 @@ using Collider2d = Physics2dCore::Collider2d;
 using Collider2dRaycastResult = Physics2dCore::Collider2dRaycastResult;
 using PropertyChangedEvent = Physics2dCore::PropertyChangedEvent;
 using IBroadphase2dManager = Physics2dCore::IBroadphase2dManager;
+using IConstraint2dSolver = Physics2dCore::IConstraint2dSolver;
+using SimpleConstraint2dSolver = Physics2dCore::SimpleConstraint2dSolver;
 namespace BroadphaseLayerType = Physics2dCore::BroadphaseLayerType;
+
+template <typename T>
+using Array = Zero::Array<T>;
 
 class PhysicsSpace2dTCS;
 class RigidBody2dTCS;

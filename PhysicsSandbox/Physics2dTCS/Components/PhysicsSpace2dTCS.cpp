@@ -9,12 +9,14 @@
 #include "Physics2dCore/Utilities/Integration2d.hpp"
 #include "Physics2dCore/Utilities/TransformComputation.hpp"
 #include "Physics2dTCS/Components/RigidBody2dTCS.hpp"
+#include "Physics2dTCS/Resolution/Contact2dCache.hpp"
 #include "Engine/Time.hpp"
 #include "Engine/Cog.hpp"
 #include "SandboxGeometry/Shapes2d/Ray2d.hpp"
 #include "Physics2dCore/Detection/Collider2dRaycastResult.hpp"
 #include "Physics2dCore/Detection/CollisionLibrary.hpp"
 #include "Physics2dCore/Detection/Broadphase/SimpleBroadphase2dManager.hpp"
+#include "Physics2dCore/Resolution/Solvers/SimpleConstraint2dSolver.hpp"
 #include "SandboxSpatialPartitions/Broadphase2d/NSquaredAabbBroadphase2d.hpp"
 
 using namespace Zero;
@@ -41,10 +43,14 @@ ZilchDefineType(PhysicsSpace2dTCS, builder, type)
 PhysicsSpace2dTCS::PhysicsSpace2dTCS()
 {
   mCollisionLibrary = new Physics2dCore::CollisionLibrary();
+  mConstraintSolver = new Physics2dCore::SimpleConstraint2dSolver();
+  mContactCache = new Contact2dCache();
 }
 
 PhysicsSpace2dTCS::~PhysicsSpace2dTCS()
 {
+  delete mContactCache;
+  delete mConstraintSolver;
   delete mBroadphaseManager;
   delete mCollisionLibrary;
 }
@@ -71,6 +77,7 @@ void PhysicsSpace2dTCS::IterateTimestep(float dt)
   UpdateQueues(dt);
   IntegrateBodiesVelocity(dt);
   DetectCollisions();
+  ResolutionPhase(dt);
   IntegrateBodiesPosition(dt);
 }
 
@@ -88,13 +95,29 @@ void PhysicsSpace2dTCS::Broadphase(Array<Physics2dCore::Collider2dPair>& possibl
 
 void PhysicsSpace2dTCS::NarrowPhase(Array<Physics2dCore::Collider2dPair>& possiblePairs)
 {
+  mContactCache->BeginFrame();
   for(auto&& range = possiblePairs.All(); !range.Empty(); range.PopFront())
   {
     auto&& pair = range.Front();
     Physics2dCore::ContactManifold2d manifold;
     if(mCollisionLibrary->TestIntersection(pair.mColliders[0], pair.mColliders[1], manifold))
+    {
       DebugDrawContactManifold(manifold);
+      mContactCache->Add(manifold);
+    }
   }
+  mContactCache->EndFrame();
+}
+
+void PhysicsSpace2dTCS::ResolutionPhase(float dt)
+{
+  for(auto range = mContactCache->GetContacts(); !range.Empty(); range.PopFront())
+  {
+    mConstraintSolver->Add(&range.Front());
+  }
+
+  mConstraintSolver->Solve(dt);
+  mConstraintSolver->Clear();
 }
 
 void PhysicsSpace2dTCS::UpdateQueues(float dt)

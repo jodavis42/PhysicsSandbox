@@ -15,6 +15,8 @@ target_sources(Physics2dTCS
     ${CMAKE_CURRENT_LIST_DIR}/Components/Collider2dTCS.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/RigidBody2dTCS.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/RigidBody2dTCS.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Contact2dCache.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Contact2dCache.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Physics2dQueues.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Physics2dQueues.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/MassComputationQueueEntry.cpp
