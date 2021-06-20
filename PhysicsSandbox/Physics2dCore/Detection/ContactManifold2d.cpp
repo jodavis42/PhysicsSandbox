@@ -2,6 +2,9 @@
 
 #include "ContactManifold2d.hpp"
 
+#include "Physics2dCore/Components/Colliders/Collider2d.hpp"
+#include "Physics2dCore/Components/RigidBody2d.hpp"
+
 namespace Physics2dCore
 {
 
@@ -14,6 +17,16 @@ const Collider2d* ContactManifold2d::GetCollider(size_t index)
 const Collider2d* ContactManifold2d::GetCollider(size_t index) const
 {
   return mColliders[index];
+}
+
+RigidBody2d* ContactManifold2d::GetRigidBody(size_t index)
+{
+  return mColliders[0]->GetOwner()->has(RigidBody2d);
+}
+
+const RigidBody2d* ContactManifold2d::GetRigidBody(size_t index) const
+{
+  return mColliders[0]->GetOwner()->has(RigidBody2d);
 }
 
 void ContactManifold2d::AddSubFeatureContact(const SubFeatureContactManifold2d& subFeatureContact)

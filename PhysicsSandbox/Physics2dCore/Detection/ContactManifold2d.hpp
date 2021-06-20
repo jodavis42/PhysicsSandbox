@@ -20,6 +20,8 @@ class ContactManifold2d
 public:
   const Collider2d* GetCollider(size_t index);
   const Collider2d* GetCollider(size_t index) const;
+  RigidBody2d* GetRigidBody(size_t index);
+  const RigidBody2d* GetRigidBody(size_t index) const;
 
   void AddSubFeatureContact(const SubFeatureContactManifold2d& subFeatureContact);
   size_t ContactSubFeatureContactCount() const;
