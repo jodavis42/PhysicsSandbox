@@ -63,6 +63,9 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMolecule.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMoleculeWalker.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMoleculeWalker.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Solvers/IConstraint2dSolver.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Constraints/IConstraint.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Constraints/IConstraint.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dPair.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.hpp
