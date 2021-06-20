@@ -53,6 +53,8 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dVector.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dVelocity.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dVelocity.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dFragments.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dFragments.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dMass.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dMass.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/Constraint2dMath.cpp
@@ -63,9 +65,17 @@ target_sources(Physics2dCore
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMolecule.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMoleculeWalker.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Constraint2dMoleculeWalker.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Contact2dMolecules.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintMolecules/Contact2dMolecules.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/Solvers/IConstraint2dSolver.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Solvers/SimpleConstraint2dSolver.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Solvers/SimpleConstraint2dSolver.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/Constraints/IConstraint.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Resolution/Constraints/IConstraint.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Constraints/ContactConstraint2d.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/Constraints/ContactConstraint2d.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/ContactConstraint2dManifold.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Resolution/ConstraintUtilities/ContactConstraint2dManifold.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dPair.hpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utilities/Collider2dShapes.hpp

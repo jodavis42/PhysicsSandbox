@@ -45,4 +45,7 @@ class RigidBody2d;
 class Collider2dRaycastResult;
 class ColliderMassProperties2d;
 
+class Constraint2dMolecule;
+class Constraint2dMoleculeWalker;
+
 }//namespace Physics2dCore
